@@ -127,20 +127,29 @@ def main(argv=sys.argv):
     except Exception as e:
         print("Could not log into Falcon because {}".format(e))
         sys.exit(2)
-    
+
     if args.commands == 'hosts':
         hosts = HostsController(FalconHosts(access_token))
         hosts_list = []
-        if args.mac is not None:
+        print(args)
+        if args.mac is True:
             hosts_list.append(
                 hosts.get_mac_hosts()
             )
+        if args.win is True:
+            hosts_list.append(
+                hosts.get_win_hosts()
+            )
+        if args.linux is True:
+            hosts_list.append(
+                hosts.get_linux_hosts()
+            )
 
-        #print(hosts_list) 
         hv = HostsView(hosts_list)
-        hv.render_names_list()
-           
+        if args.view is None or args.view == "simple":
+            hv.render_simple()
+
     args.commands
     #print(access_token)
-    print(args)
+    #print(args)
     return 0
