@@ -1,3 +1,0 @@
-[submodule "src/cscli/falconpy"]
-	path = src/cscli/falconpy
-	url = https://github.com/CrowdStrike/falconpy

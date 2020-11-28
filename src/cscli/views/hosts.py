@@ -12,7 +12,7 @@ class HostsView():
                 col_width.append(0)
         except IndexError:
             return
-        
+
         for row in rows:
             idx = 0
             for col in row:

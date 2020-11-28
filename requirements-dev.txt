@@ -1,0 +1,4 @@
+cli-config-manager
+falconpy
+pytest
+tox

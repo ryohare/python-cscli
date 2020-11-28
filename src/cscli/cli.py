@@ -14,16 +14,15 @@ Why does this file exist, and why not put this in __main__?
 
   Also see (1) from http://click.pocoo.org/5/setuptools/#setuptools-integration
 """
-import sys
 import argparse
 import getpass
+import sys
 
-# Falcon Imports
-from .falconpy.services import oauth2 as FalconAuth
-from .falconpy.services.hosts import Hosts as FalconHosts
+import cli_config_manager as SM
+from falconpy.services import oauth2 as FalconAuth
+from falconpy.services.hosts import Hosts as FalconHosts
 
 # Local Imports
-from .settings import settings_manager as SM
 from .controllers.hosts import HostsController
 from .views.hosts import HostsView
 
@@ -149,7 +148,4 @@ def main(argv=sys.argv):
         if args.view is None or args.view == "simple":
             hv.render_simple()
 
-    args.commands
-    #print(access_token)
-    #print(args)
     return 0
