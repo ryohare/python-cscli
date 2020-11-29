@@ -3,9 +3,9 @@ class NoResultsException(Exception):
 
 
 class HostsController:
+    """Controller for requesting hosts data from crowdstrike"""
     def __init__(self, falcon_hosts_api):
         self.api = falcon_hosts_api
-
 
     def _check_status_code_and_throw(self, results):
         """helper function which checks if the status code
@@ -39,25 +39,30 @@ class HostsController:
 
     def _get_hosts_helper(self, query):
         """Helper func which will get a list of intance id's associated with
-        the supplied query. Thes instance id's will need to be looked up with
+        the supplied query. Thes instance id's are then looked up with
         _get_hosts to get the instance details and be useful"""
         body = ""
         results = self.api.QueryDevicesByFilter(parameters=query, body=body)
+        print(results)
         instances = self._check_status_code_and_throw(results)
         return self._get_hosts(instances)
 
     def get_all_hosts(self):
+        """Get all hosts registered with crowdstrike"""
         query = {'filter': ""}
         return self._get_hosts_helper(query)
 
     def get_mac_hosts(self):
+        """Get mac hosts registered with crowdstrike"""
         query = {'filter': "platform_name: \"Mac\""}
         return self._get_hosts_helper(query)
 
     def get_win_hosts(self):
+        """Get windows hosts registered with crowdstrike"""
         query = {'filter': "platform_name: \"Windows\""}
         return self._get_hosts_helper(query)
 
     def get_linux_hosts(self):
+        """Get linux hosts registered with crowdstrike"""
         query = {'filter': "platform_name: \"Linux\""}
         return self._get_hosts_helper(query)

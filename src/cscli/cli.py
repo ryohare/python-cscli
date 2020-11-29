@@ -131,11 +131,13 @@ def main(argv=sys.argv):
         hosts = HostsController(FalconHosts(access_token))
         hosts_list = []
         print(args)
+        plat_filter = False
         if args.mac is True:
             try:
                 hosts_list.append(
                     hosts.get_mac_hosts()
                 )
+                plat_filter = True
             except NoResultsException:
                 pass
         if args.win is True:
@@ -143,12 +145,21 @@ def main(argv=sys.argv):
                 hosts_list.append(
                     hosts.get_win_hosts()
                 )
+                plat_filter = True
             except NoResultsException:
                 pass
         if args.linux is True:
             try:
                 hosts_list.append(
                     hosts.get_linux_hosts()
+                )
+                plat_filter = True
+            except NoResultsException:
+                pass
+        if not plat_filter:
+            try:
+                hosts_list.append(
+                    hosts.get_all_hosts()
                 )
             except NoResultsException:
                 pass
