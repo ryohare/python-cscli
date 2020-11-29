@@ -23,7 +23,7 @@ from falconpy.services import oauth2 as FalconAuth
 from falconpy.services.hosts import Hosts as FalconHosts
 
 # Local Imports
-from .controllers.hosts import HostsController
+from .controllers.hosts import HostsController, NoResultsException
 from .views.hosts import HostsView
 
 
@@ -132,17 +132,26 @@ def main(argv=sys.argv):
         hosts_list = []
         print(args)
         if args.mac is True:
-            hosts_list.append(
-                hosts.get_mac_hosts()
-            )
+            try:
+                hosts_list.append(
+                    hosts.get_mac_hosts()
+                )
+            except NoResultsException:
+                pass
         if args.win is True:
-            hosts_list.append(
-                hosts.get_win_hosts()
-            )
+            try:
+                hosts_list.append(
+                    hosts.get_win_hosts()
+                )
+            except NoResultsException:
+                pass
         if args.linux is True:
-            hosts_list.append(
-                hosts.get_linux_hosts()
-            )
+            try:
+                hosts_list.append(
+                    hosts.get_linux_hosts()
+                )
+            except NoResultsException:
+                pass
 
         hv = HostsView(hosts_list)
         if args.view is None or args.view == "simple":

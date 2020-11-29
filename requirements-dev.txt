@@ -1,4 +1,6 @@
 cli-config-manager
 falconpy
 pytest
+pytest-cov
 tox
+mock
