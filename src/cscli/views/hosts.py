@@ -1,6 +1,7 @@
 from .view import IView
 
 class HostsView(IView):
+    """Class for rendering hosts data into various view formats"""
     def __init__(self, dataset):
         self.dataset = dataset
 
